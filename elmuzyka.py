@@ -130,7 +130,6 @@ paginationNext=pagination.next_element
 strontxt=paginationNext.next_sibling.text
 liczbaStron=int(strontxt[2:])
 
-clstartPage=4
 # iteracja po kolejnych stronach zawierających audycje
 if clstartPage==None:
     clstartPage=1
