@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
@@ -129,12 +130,22 @@ paginationNext=pagination.next_element
 strontxt=paginationNext.next_sibling.text
 liczbaStron=int(strontxt[2:])
 
+clstartPage=4
 # iteracja po kolejnych stronach zawierających audycje
 if clstartPage==None:
     clstartPage=1
 if clendPage==None:
     clendPage=liczbaStron
 print('strona startowa:[{}], strona końcowa:[{}]'.format(clstartPage,clendPage))
+# przekliknijmy się do strony startowej
+if clstartPage>1:
+    for i in range(1,clstartPage):
+        try:
+            button=driver.find_element(By.CSS_SELECTOR,'[aria-label="{}"]'.format("Page "+str(i+1).strip()))
+            button.click()
+            time.sleep(2)
+        except NoSuchElementException:
+            sys.exit()
 for licznikStron in range(clstartPage,clendPage+1):
     page=driver.page_source
     soup=BeautifulSoup(page,'lxml')
